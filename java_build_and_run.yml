@@ -49,4 +49,4 @@
   - name: copy file from host
     copy:
       src: /tmp/hello-1.0.war
-      dest: /var/lib/tomcat/webapps
+      dest: /var/lib/tomcat9/webapps
