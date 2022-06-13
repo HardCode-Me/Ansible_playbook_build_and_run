@@ -1,0 +1,39 @@
+---
+- name: build war
+  hosts: build
+  become: yes
+
+  tasks:
+  - name: install maven and git
+    apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+      with_items:
+        - maven
+        - git
+
+  - name: git clone repo
+    git:
+      repo: 'https://github.com/boxfuse/boxfuse-sample-java-war-hello'
+      dest: /tmp
+
+  - name: compile and package war file
+    command: 'mvn  package'
+    args:
+      chdir: /tmp/boxfuse-sample-java-war-hello
+
+
+- name: deploy web service
+  hosts: web
+  become: yes
+
+  tasks:
+    - name: install tomcat
+      apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
+        with_items:
+          - tomcat
+
+    - name: copy file from web server
+      synchronize:
+        src: /tmp/boxfuse-sample-java-war-hello/target/hello-1.0.war
+        dest: /usr/local/tomcat/webapps
+        mode: push
+        delegate_to: build
