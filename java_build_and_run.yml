@@ -29,7 +29,7 @@
     - name: install tomcat
       apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
       with_items:
-        - tomcat
+        - tomcat9
 
     - name: copy file from web server
       synchronize:
