@@ -13,7 +13,7 @@
   - name: git clone repo
     git:
       repo: 'https://github.com/boxfuse/boxfuse-sample-java-war-hello'
-      dest: /tmp
+      dest: /tmp/boxfuse-sample-java-war-hello
 
   - name: compile and package war file
     command: 'mvn  package'
