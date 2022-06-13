@@ -6,9 +6,9 @@
   tasks:
   - name: install maven and git
     apt: pkg={{ item }} state=latest update_cache=yes cache_valid_time=3600
-      with_items:
-        - maven
-        - git
+    with_items:
+      - maven
+      - git
 
   - name: git clone repo
     git:
